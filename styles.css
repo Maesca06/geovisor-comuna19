@@ -1,9 +1,32 @@
-body {
+body, html {
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+header {
+  background-color: #006699;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-family: Arial, sans-serif;
 }
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.toolbar button,
+.toolbar select {
+  padding: 5px;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
 #map {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: calc(100vh - 60px); /* Ajuste por el header */
 }
