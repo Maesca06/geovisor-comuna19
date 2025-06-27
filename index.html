@@ -3,27 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Visor Comuna 19</title>
+
+  <!--  ▸ Título y fuente -->
+  <title>Geovisor Movilidad COMUNA 19</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
+
+  <!--  ▸ Estilos propios + Leaflet -->
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
+
 <body>
+  <!--  ▸ Encabezado fijo -->
   <header>
-    <h1>Visor Comuna 19 - Cali</h1>
-    <div class="toolbar">
-      <button onclick="volverInicio()">Volver al inicio</button>
-      <select onchange="cargarCapa(this.value)">
-        <option value="">-- Cargar capa --</option>
-        <option value="data/capa1.geojson">Capa 1 (ejemplo)</option>
-        <option value="data/capa2.geojson">Capa 2 (ejemplo)</option>
-      </select>
-    </div>
+    <h1>Geovisor Movilidad COMUNA 19</h1>
+    <button id="btn-toggle">☰ Capas</button>
   </header>
 
+  <!--  ▸ Panel lateral (sidebar) -->
+  <aside id="sidebar" class="closed">
+    <h2>Capas y herramientas</h2>
+
+    <!--  ▸ Selector de capas de ejemplo -->
+    <label class="switch">
+      <input type="checkbox" id="chk-bike" onchange="toggleBikeLanes(this.checked)">
+      <span>Bicicarriles (ejemplo)</span>
+    </label>
+
+    <label class="switch">
+      <input type="checkbox" id="chk-bus" onchange="toggleBusRoutes(this.checked)">
+      <span>Rutas de bus (ejemplo)</span>
+    </label>
+
+    <hr/>
+
+    <!--  ▸ Botones de utilidad -->
+    <button onclick="volverInicio()">Volver al inicio</button>
+    <button onclick="localizarUsuario()">Mi ubicación</button>
+  </aside>
+
+  <!--  ▸ Contenedor del mapa -->
   <div id="map"></div>
 
+  <!--  ▸ Scripts -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
+
 
