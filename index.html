@@ -4,76 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Geovisor Movilidad COMUNA 19</title>
+  <title>Geovisor Movilidad COMUNA 19</title>
+
+  <!-- Tipografía -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
-  <!-- Estilos -->
+  <!-- Estilos propios + Leaflet + plugins -->
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-measure@3.3.1/dist/leaflet-measure.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-measure/dist/leaflet-measure.css" />
-</head>
 
+</head>
 <body>
+
+  <!-- ENCABEZADO -->
   <header>
     <div class="brand">
       <i class="fa-solid fa-map-location-dot"></i>
-      Geovisor Movilidad <span>COMUNA 19</span>
+      Geovisor Movilidad <span>COMUNA 19</span>
     </div>
-    <div class="header-btns">
-      <button id="btnToggle"><i class="fa-solid fa-layer-group"></i> Panel</button>
-    </div>
+    <button id="btnToggle"><i class="fa-solid fa-layer-group"></i> Panel</button>
   </header>
 
+  <!-- SIDEBAR -->
   <aside id="sidebar" class="closed">
     <nav class="tabs">
-      <button class="tab active" data-tab="capas"><i class="fa-solid fa-layer-group"></i> Capas</button>
-      <button class="tab" data-tab="tools"><i class="fa-solid fa-toolbox"></i> Herramientas</button>
-      <button class="tab" data-tab="legend"><i class="fa-solid fa-rectangle-list"></i> Leyenda</button>
-      <button class="tab" data-tab="about"><i class="fa-solid fa-circle-info"></i> Acerca</button>
+      <button class="tab active" data-tab="capas"><i class="fa-solid fa-layer-group"></i> Capas</button>
+      <button class="tab" data-tab="tools"><i class="fa-solid fa-toolbox"></i> Herramientas</button>
+      <button class="tab" data-tab="legend"><i class="fa-solid fa-rectangle-list"></i> Leyenda</button>
+      <button class="tab" data-tab="about"><i class="fa-solid fa-circle-info"></i> Acerca</button>
     </nav>
 
     <section class="panel active" id="panel-capas">
-      <h2>Capas disponibles</h2>
-      <div class="layer-switch">
-        <label class="switch">
-          <input type="checkbox" onchange="toggleLayer('bike')">
-          <span>Bicicarriles (demo)</span>
-        </label>
-        <label class="switch">
-          <input type="checkbox" onchange="toggleLayer('bus')">
-          <span>Rutas de bus (demo)</span>
-        </label>
-      </div>
+      <h2>Capas</h2>
+      <label class="switch">
+        <input type="checkbox" onchange="toggleLayer('bike')">
+        <span>Bicicarriles (demo)</span>
+      </label>
+      <label class="switch">
+        <input type="checkbox" onchange="toggleLayer('bus')">
+        <span>Rutas de bus (demo)</span>
+      </label>
     </section>
 
     <section class="panel" id="panel-tools">
       <h2>Herramientas</h2>
-      <button onclick="goHome()"><i class="fa-solid fa-house"></i> Ir al centro</button>
-      <button onclick="locateUser()"><i class="fa-solid fa-location-crosshairs"></i> Mi ubicación</button>
-      <button onclick="alert('La búsqueda se activará pronto')"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+      <button onclick="goHome()"><i class="fa-solid fa-house"></i> Inicio</button>
+      <button onclick="locateUser()"><i class="fa-solid fa-location-crosshairs"></i> Mi ubicación</button>
     </section>
 
     <section class="panel" id="panel-legend">
       <h2>Leyenda</h2>
-      <div id="legend-content">
-        <p>Activa capas para ver simbología.</p>
-      </div>
+      <div id="legend-content"><p>Activa capas…</p></div>
     </section>
 
     <section class="panel" id="panel-about">
       <h2>Acerca de</h2>
-      <p>Geovisor de movilidad y transporte para la Comuna 19 (Cali).</p>
-      <p>Desarrollado con tecnologías libres.</p>
+      <p>Visor demostrativo de movilidad para la Comuna 19 (Cali).</p>
     </section>
   </aside>
 
+  <!-- MAPA -->
   <div id="map"></div>
 
   <!-- Scripts -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/leaflet-measure/dist/leaflet-measure.min.js"></script>
-  <script src="https://unpkg.com/leaflet-zoombox/L.Control.ZoomBox.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-measure@3.3.1/dist/leaflet-measure.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/articodeltd/Leaflet.Control.ZoomBox@2.0.1/L.Control.ZoomBox.min.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
+
