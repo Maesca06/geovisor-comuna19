@@ -1,32 +1,100 @@
-body, html {
+/* Fuente base */
+body {
   margin: 0;
-  padding: 0;
-  height: 100%;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Paleta de colores */
+:root {
+  --azul: #006699;
+  --verde: #88c057;
+  --gris-claro: #f4f4f4;
+  --texto: #333333;
+}
+
+/* Encabezado */
 header {
-  background-color: #006699;
+  background: var(--azul);
   color: white;
-  padding: 10px 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-family: Arial, sans-serif;
+  justify-content: space-between;
+  padding: 10px 20px;
 }
 
-h1 {
-  margin: 0;
+header h1 {
   font-size: 20px;
+  font-weight: 500;
+  margin: 0;
 }
 
-.toolbar button,
-.toolbar select {
-  padding: 5px;
-  font-size: 14px;
-  margin-left: 10px;
+header button {
+  background: var(--verde);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
 }
 
+/* Mapa ocupa todo menos el header */
 #map {
+  height: calc(100vh - 60px);
   width: 100%;
-  height: calc(100vh - 60px); /* Ajuste por el header */
+}
+
+/* Sidebar */
+aside {
+  position: fixed;
+  top: 60px;            /* debajo del header */
+  left: 0;
+  width: 260px;
+  height: calc(100vh - 60px);
+  background: white;
+  border-right: 2px solid var(--azul);
+  box-shadow: 2px 0 5px rgba(0,0,0,.1);
+  padding: 15px;
+  overflow-y: auto;
+  transition: transform .3s ease;
+}
+
+aside.closed {
+  transform: translateX(-100%);
+}
+
+aside h2 {
+  margin-top: 0;
+  font-size: 18px;
+  color: var(--azul);
+}
+
+/* Switch estilo simple para capas */
+.switch {
+  display: flex;
+  align-items: center;
+  margin: 6px 0;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--texto);
+}
+
+aside button {
+  width: 100%;
+  margin: 6px 0;
+  padding: 8px;
+  border: none;
+  background: var(--azul);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Scroll bonito */
+aside::-webkit-scrollbar {
+  width: 6px;
+}
+aside::-webkit-scrollbar-thumb {
+  background: var(--verde);
+  border-radius: 3px;
 }
