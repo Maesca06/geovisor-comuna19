@@ -1,62 +1,35 @@
-/* ---------- variables ---------- */
-:root{
-  --azul: #006699;
-  --verde: #7CC654;
-  --gris-bg: #f6f8fa;
-  --txt: #333;
-}
-
-/* ---------- reset ---------- */
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Poppins,Arial,sans-serif;color:var(--txt)}
-
 /* ---------- header ---------- */
-header{
-  height:60px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 20px;background:var(--azul);color:#fff;box-shadow:0 2px 5px rgba(0,0,0,.15);
+header {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  background: var(--azul);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-.brand{font-weight:600;font-size:18px;display:flex;align-items:center;gap:8px}
-.brand span{font-weight:300}
-.header-btns button{
-  background:var(--verde);border:none;color:#fff;font-weight:500;padding:6px 14px;
-  border-radius:4px;cursor:pointer;transition:background .2s;
+.brand {
+  font-weight: 600;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.header-btns button:hover{background:#68b045}
-
-/* ---------- sidebar ---------- */
-aside{
-  position:fixed;top:60px;left:0;height:calc(100vh - 60px);width:320px;
-  background:#fff;border-right:3px solid var(--azul);box-shadow:2px 0 6px rgba(0,0,0,.1);
-  overflow-y:auto;transition:transform .3s ease;z-index:800;
+.brand span {
+  font-weight: 300;
+  font-size: 18px;
 }
-aside.closed{transform:translateX(-100%)}
-
-/* pestañas */
-nav.tabs{display:flex;border-bottom:1px solid var(--gris-bg)}
-nav.tabs .tab{
-  flex:1;background:#fff;border:none;padding:10px;font-weight:500;cursor:pointer;
-  border-right:1px solid var(--gris-bg);transition:background .2s;
+.header-btns button {
+  background: var(--verde);
+  border: none;
+  color: white;
+  font-weight: 500;
+  padding: 8px 16px;
+  font-size: 15px;
+  border-radius: 4px;
+  cursor: pointer;
 }
-nav.tabs .tab:last-child{border-right:none}
-nav.tabs .tab.active,nav.tabs .tab:hover{background:var(--gris-bg)}
-
-/* paneles */
-.panel{display:none;padding:16px}
-.panel.active{display:block}
-.panel h2{font-size:16px;margin-bottom:10px;color:var(--azul)}
-
-/* switches de capas */
-.layer-switch .switch{display:flex;align-items:center;gap:6px;margin:6px 0}
-
-/* botones herramienta */
-#panel-tools button{
-  width:100%;margin:6px 0;padding:8px;border:none;border-radius:4px;
-  background:var(--azul);color:#fff;font-weight:500;cursor:pointer;
+.header-btns button:hover {
+  background: #5fa044;
 }
-#panel-tools button:hover{background:#055981}
-
-/* ---------- mapa ---------- */
-#map{height:calc(100vh - 60px);width:100%}
-
-/* ---------- leyenda ---------- */
-#legend-content p{font-size:14px;margin:6px 0}
