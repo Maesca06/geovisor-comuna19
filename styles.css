@@ -1,35 +1,52 @@
-/* ---------- header ---------- */
-header {
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 25px;
-  background: var(--azul);
-  color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+:root{
+  --azul:#006699;
+  --verde:#7CC654;
+  --gris:#f6f8fa;
+  --txt:#333;
 }
-.brand {
-  font-weight: 600;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Poppins,Arial, sans-serif;color:var(--txt)}
+
+/* HEADER más grueso */
+header{
+  height:80px;background:var(--azul);color:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 25px;box-shadow:0 4px 10px rgba(0,0,0,.25);z-index:900;
 }
-.brand span {
-  font-weight: 300;
-  font-size: 18px;
+.brand{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:600}
+.brand span{font-weight:300;font-size:18px}
+header button{
+  background:var(--verde);border:none;padding:10px 18px;border-radius:4px;
+  color:#fff;font-size:15px;font-weight:500;cursor:pointer
 }
-.header-btns button {
-  background: var(--verde);
-  border: none;
-  color: white;
-  font-weight: 500;
-  padding: 8px 16px;
-  font-size: 15px;
-  border-radius: 4px;
-  cursor: pointer;
+header button:hover{background:#5fa044}
+
+/* SIDEBAR */
+aside{
+  position:fixed;top:80px;left:0;width:320px;height:calc(100vh - 80px);
+  background:#fff;border-right:3px solid var(--azul);
+  box-shadow:2px 0 6px rgba(0,0,0,.15);overflow-y:auto;z-index:800;
+  transition:transform .3s ease;
 }
-.header-btns button:hover {
-  background: #5fa044;
+aside.closed{transform:translateX(-100%)}
+.tabs{display:flex;border-bottom:1px solid var(--gris)}
+.tab{flex:1;padding:10px;border:none;background:#fff;cursor:pointer;font-weight:500}
+.tab:not(:last-child){border-right:1px solid var(--gris)}
+.tab.active,.tab:hover{background:var(--gris)}
+.panel{display:none;padding:16px}
+.panel.active{display:block}
+h2{font-size:16px;color:var(--azul);margin-bottom:8px}
+.switch{display:flex;align-items:center;gap:8px;margin:6px 0}
+#panel-tools button{
+  width:100%;margin:6px 0;padding:9px;border:none;border-radius:4px;
+  background:var(--azul);color:#fff;font-weight:500;cursor:pointer
 }
+#panel-tools button:hover{background:#055981}
+
+/* MAPA */
+#map{height:calc(100vh - 80px);width:100%}
+
+/* LEYENDA */
+#legend-content p{font-size:14px;margin:4px 0}
