@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Geovisor Movilidad Comuna 19- Universidad del Valle</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-minimap/dist/Control.MiniMap.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-easybutton@2/src/easy-button.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+  <div id="header">
+    <h2>Geovisor Movilidad Comuna 19 - Universidad del Valle</h2>
+  </div>
+  <div id="map"></div>
+
+  <!-- Botón y panel del widget -->
+  <button class="widget-btn" onclick="toggleWidget()">🛠️ Editar puntos</button>
+  <div class="widget-panel" id="editorPanel">
+    <button onclick="enableAddMode()">➕ Agregar punto</button>
+    <button onclick="enableDeleteMode()">🗑️ Eliminar punto</button>
+    <button onclick="disableEditMode()">❌ Cerrar edición</button>
+  </div>
+
+  <!-- Leyenda -->
+  <div class="legend" id="legend">
+    <div class="legend-title">📌 Leyenda</div>
+    <div class="legend-item"><div class="legend-symbol symbol-box" style="background:#66bb6a;"></div>Comuna 19</div>
+    <div class="legend-item"><div class="symbol-line" style="border-top:3px solid #999;"></div>Vías</div>
+    <div class="legend-item"><div class="symbol-line" style="border-top:3px solid #1976d2;"></div>Ciclorrutas</div>
+    <div class="legend-item"><div class="legend-symbol symbol-box" style="background:#0d47a1;"></div>Estaciones MIO</div>
+    <div class="legend-item"><div class="legend-symbol symbol-circle" style="background:#4caf50;"></div>Paradas MIO</div>
+    <div class="legend-item"><div class="symbol-line" style="border-top:3px solid #f44336;"></div>Tramos Viales</div>
+    <div class="legend-item"><div class="legend-symbol symbol-circle" style="background:#ffeb3b;"></div>Áreas Alta Demanda</div>
+    <div class="legend-item"><div class="legend-symbol symbol-circle" style="background:#e53935;"></div>Semáforos Dañados</div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <script src="https://unpkg.com/leaflet-minimap/dist/Control.MiniMap.min.js"></script>
+  <script src="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
+  <script src="https://unpkg.com/leaflet-easybutton@2/src/easy-button.js"></script>
+  <script src="config.js"></script>
+
+  <script>
+    const map = L.map('map').setView([3.4372, -76.5225], 13);
+    map.createPane('comunaPane');
+    map.getPane('comunaPane').style.zIndex = 200;
+    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    L.control.scale().addTo(map);
+    L.Control.geocoder().addTo(map);
+    L.control.locate().addTo(map);
+
+    const miniMap = new L.Control.MiniMap(
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
+      { toggleDisplay: true }
+    ).addTo(map);
+
+    const north = L.control({ position: "topleft" });
+    north.onAdd = function(map) {
+      const div = L.DomUtil.create("div", "info north-arrow");
+      div.innerHTML = "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/North_arrow.svg/50px-North_arrow.svg.png' style='width:50px;'>";
+      return div;
+    };
+    north.addTo(map);
+
+    L.easyButton('fa-home', function(){
+      map.setView([3.4372, -76.5225], 13);
+    }, 'Inicio').addTo(map);
+
+    const baseMaps = { "OpenStreetMap": osm };
+    const overlayMaps = {};
+    let addMode = false;
+    let deleteMode = false;
+
+    const wfsUrl = 'http://ec2-54-236-112-99.compute-1.amazonaws.com:8080/geoserver/wfs';
+
+    function toggleWidget() {
+      const panel = document.getElementById("editorPanel");
+      panel.style.display = panel.style.display === "block" ? "none" : "block";
+    }
+
+    function enableAddMode() {
+      addMode = true;
+      deleteMode = false;
+      alert("Haz clic en el mapa para agregar un punto.");
+    }
+
+    function enableDeleteMode() {
+      deleteMode = true;
+      addMode = false;
+      alert("Haz clic en un punto para eliminarlo.");
+    }
+
+    function disableEditMode() {
+      addMode = false;
+      deleteMode = false;
+      alert("Modo edición desactivado.");
+    }
+
+    function enviarWFS(xml, mensaje) {
+      fetch(wfsUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/xml' },
+        body: xml
+      })
+      .then(res => res.text())
+      .then(() => alert(mensaje))
+      .catch(err => alert("Error: " + err));
+    }
+
+    function eliminarPunto(nombre, marker) {
+      const xml = `
+        <wfs:Transaction service="WFS" version="1.0.0"
+          xmlns:wfs="http://www.opengis.net/wfs"
+          xmlns:ogc="http://www.opengis.net/ogc"
+          xmlns:feature="http://www.openplans.org/movilidadcomuna19">
+          <wfs:Delete typeName="feature:puntos_semaforos_danados">
+            <ogc:Filter>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>nombre</ogc:PropertyName>
+                <ogc:Literal>${nombre}</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+            </ogc:Filter>
+          </wfs:Delete>
+        </wfs:Transaction>`;
+      map.removeLayer(marker);
+      enviarWFS(xml, "Punto eliminado");
+    }
+
+    map.on("click", function(e) {
+      if (!addMode) return;
+      const nombre = "punto_" + Date.now();
+      const lat = e.latlng.lat;
+      const lng = e.latlng.lng;
+
+      const marker = L.circleMarker([lat, lng], {
+        radius: 6, color: "#000", fillColor: "#FF0000", fillOpacity: 1, weight: 1
+      }).addTo(map).bindTooltip(nombre).openTooltip();
+
+      marker.on("click", function() {
+        if (deleteMode) eliminarPunto(nombre, marker);
+      });
+
+      const xml = `
+        <wfs:Transaction service="WFS" version="1.0.0"
+          xmlns:wfs="http://www.opengis.net/wfs"
+          xmlns:gml="http://www.opengis.net/gml"
+          xmlns:feature="http://www.openplans.org/movilidadcomuna19">
+          <wfs:Insert>
+            <feature:puntos_semaforos_danados>
+              <feature:geom>
+                <gml:Point srsName="EPSG:4326">
+                  <gml:coordinates>${lng},${lat}</gml:coordinates>
+                </gml:Point>
+              </feature:geom>
+              <feature:nombre>${nombre}</feature:nombre>
+            </feature:puntos_semaforos_danados>
+          </wfs:Insert>
+        </wfs:Transaction>`;
+      enviarWFS(xml, "Punto insertado");
+    });
+
+    async function loadLayersInOrder() {
+      for (const layer of layers) {
+        const res = await fetch(layer.url);
+        const data = await res.json();
+        const geo = L.geoJSON(data, {
+          pane: layer.pane || 'overlayPane',
+          style: layer.style,
+          interactive: layer.interactive === false ? false : true,
+          pointToLayer: (feature, latlng) => {
+            const marker = L.circleMarker(latlng, layer.pointStyle || {});
+            if (layer.name === "Puntos Semáforos Dañados") {
+              marker.on("click", () => {
+                if (deleteMode) eliminarPunto(feature.properties.nombre, marker);
+              });
+            }
+            return marker;
+          },
+          onEachFeature: (feature, layerObj) => {
+            let html = "<table>";
+            for (const [key, value] of Object.entries(feature.properties)) {
+              if (typeof value === 'string' && value.trim() !== '') {
+                html += `<tr><th>${key}</th><td>${value}</td></tr>`;
+              }
+            }
+            html += "</table>";
+            layerObj.bindPopup(html);
+          }
+        }).addTo(map);
+        overlayMaps[layer.name] = geo;
+      }
+      L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+    }
+
+    loadLayersInOrder();
+  </script>
+</body>
+</html>
+

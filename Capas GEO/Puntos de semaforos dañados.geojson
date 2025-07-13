@@ -1,0 +1,15 @@
+{
+"type": "FeatureCollection",
+"name": "Puntos de semaforos dañados",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id_semaforo": 1, "tipo_fallo": "apagado", "prioridad": "alta", "fecha_reporte": "2025-07-02T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -76.546671404598555, 3.404637653507068 ] } },
+{ "type": "Feature", "properties": { "id_semaforo": 2, "tipo_fallo": "desincronizado", "prioridad": "media", "fecha_reporte": "2025-07-03T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -76.546509690471751, 3.424440737526024 ] } },
+{ "type": "Feature", "properties": { "id_semaforo": 3, "tipo_fallo": "dañado", "prioridad": "baja", "fecha_reporte": "2025-06-14T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -76.539920142422758, 3.416590687752482 ] } },
+{ "type": "Feature", "properties": { "id_semaforo": 4, "tipo_fallo": "apagado", "prioridad": "alta", "fecha_reporte": "2025-06-28T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -76.53908729078934, 3.428105241417814 ] } },
+{ "type": "Feature", "properties": { "id_semaforo": 5, "tipo_fallo": "desincronizado", "prioridad": "media", "fecha_reporte": "2025-07-02T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -76.546605726524973, 3.398109881626683 ] } },
+{ "type": "Feature", "properties": { "id_semaforo": 6, "tipo_fallo": "dañado", "prioridad": "media", "fecha_reporte": "2025-06-28T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -76.542652858622802, 3.432814951774976 ] } },
+{ "type": "Feature", "properties": { "id_semaforo": 7, "tipo_fallo": "apagado", "prioridad": "baja", "fecha_reporte": "2025-06-29T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -76.549687701531667, 3.409309038115338 ] } },
+{ "type": "Feature", "properties": { "id_semaforo": 8, "tipo_fallo": "desincronizado", "prioridad": "alta", "fecha_reporte": "2025-08-04T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -76.549447650872565, 3.434959904714976 ] } }
+]
+}

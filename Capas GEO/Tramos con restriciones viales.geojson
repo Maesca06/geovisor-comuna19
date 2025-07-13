@@ -1,0 +1,14 @@
+{
+"type": "FeatureCollection",
+"name": "Tramos con restriciones viales",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id_tramo": 46, "nombre_tramo": "Carrera36", "tipo_restriccion": "restricción_horaria", "duracion": "4 horas", "longitud": 200.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -76.542280533355751, 3.430278390932479 ], [ -76.539830755208271, 3.426931212028063 ], [ -76.539830755208271, 3.426931212028063 ] ] } },
+{ "type": "Feature", "properties": { "id_tramo": 47, "nombre_tramo": "Calle5", "tipo_restriccion": "restricción_horaria", "duracion": "5 horas", "longitud": 120.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -76.5469978944584, 3.4040198902816 ], [ -76.546610847060151, 3.401164052751855 ] ] } },
+{ "type": "Feature", "properties": { "id_tramo": 44, "nombre_tramo": "Calle3A", "tipo_restriccion": "obra", "duracion": "3", "longitud": 150.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -76.547565778454839, 3.433294805613813 ], [ -76.545152674472931, 3.435323051114199 ] ] } },
+{ "type": "Feature", "properties": { "id_tramo": 45, "nombre_tramo": "Carrera39", "tipo_restriccion": "cierre", "duracion": "3 horas", "longitud": 250.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -76.546444885076312, 3.424427060890531 ], [ -76.54183794331388, 3.422149147067418 ] ] } },
+{ "type": "Feature", "properties": { "id_tramo": 48, "nombre_tramo": "Calle56", "tipo_restriccion": "obra", "duracion": "3 dias", "longitud": 170.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -76.555390533109346, 3.409895375384405 ], [ -76.54975521917099, 3.409275785511318 ] ] } },
+{ "type": "Feature", "properties": { "id_tramo": 49, "nombre_tramo": "Calle9C", "tipo_restriccion": "cierre", "duracion": "1 dia", "longitud": 80.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -76.538974503988243, 3.414826730944918 ], [ -76.538554298225947, 3.416166557155202 ] ] } },
+{ "type": "Feature", "properties": { "id_tramo": 50, "nombre_tramo": "Calle2", "tipo_restriccion": "cierre", "duracion": "3 dias", "longitud": 75.0 }, "geometry": { "type": "LineString", "coordinates": [ [ -76.550998265723948, 3.425177352458667 ], [ -76.55145775196489, 3.423569150748158 ] ] } }
+]
+}
